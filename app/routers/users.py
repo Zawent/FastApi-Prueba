@@ -27,7 +27,10 @@ def get_user(user_id: int, db: Session = Depends(get_db)):
 def login(user: UserLogin, db: Session = Depends(get_db)):
     db_user = user_service.authenticate_user(db, user.email, user.password)
     if not db_user:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid credentials"
+        )
 
-    token = create_access_token({"sub": db_user.email})
+    token = create_access_token({"sub": str(db_user.id)})
     return {"access_token": token, "token_type": "bearer"}
