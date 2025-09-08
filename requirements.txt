@@ -1,0 +1,18 @@
+fastapi==0.111.0        # Framework principal
+uvicorn[standard]==0.30.0  # Servidor ASGI con extras (auto-reload, websockets, etc.)
+
+sqlalchemy==2.0.32      # ORM para trabajar con MySQL
+pymysql==1.1.2          # Driver MySQL compatible con SQLAlchemy
+cryptography==43.0.1    # Necesario para autenticación MySQL (caching_sha2_password)
+
+alembic==1.13.2         # Migraciones de base de datos
+
+pydantic==2.11.0        # Validación de datos
+pydantic-settings==2.4.0 # Configuración basada en variables de entorno (BaseSettings)
+
+python-dotenv==1.0.1    # Cargar variables desde .env
+email-validator==2.1.1  # Validación de correos electrónicos en esquemas Pydantic
+
+PyJWT-2.10.1 
+bcrypt-4.3.0 
+passlib-1.7.4
