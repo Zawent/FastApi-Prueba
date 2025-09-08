@@ -28,3 +28,18 @@ def remove_post(db: Session, post_id: int):
         db.delete(post)
         db.commit()
     return post
+
+def update_post(db: Session, post_id: int, post_data: PostCreate, user_id: int):
+    post = db.query(Post).filter(Post.id == post_id).first()
+    if not post:
+        return None
+    if post.user_id != user_id:  # 🔒 Solo el dueño puede editar
+        return "unauthorized"
+
+    post.title = post_data.title
+    post.content = post_data.content
+    post.updated_at = datetime.now(timezone.utc)
+
+    db.commit()
+    db.refresh(post)
+    return post

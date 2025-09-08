@@ -42,3 +42,20 @@ def delete_post(
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to delete this post")
 
     return post_service.remove_post(db, post_id)
+
+@router.put("/{post_id}", response_model=PostResponse)
+def update_post(
+    post_id: int,
+    post: PostCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    updated_post = post_service.update_post(db, post_id, post, current_user.id)
+
+    if updated_post is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Post not found")
+
+    if updated_post == "unauthorized":
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not authorized to update this post")
+
+    return updated_post
