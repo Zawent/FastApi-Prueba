@@ -5,8 +5,8 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 import jwt
 from jwt import PyJWTError
-from app.models.user import User
-from app.core.database import get_db
+from models.user import User
+from core.database import get_db
 
 # Configuración de passlib para hashing de contraseñas
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
